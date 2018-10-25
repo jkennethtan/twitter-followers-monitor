@@ -1,0 +1,1 @@
+web: gunicorn monitor_followers.wsgi --log-file -
