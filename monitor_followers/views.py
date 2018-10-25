@@ -25,14 +25,14 @@ def get_followers(twitter_username):
     with HTMLSession() as s:
         while True:
             try:
-            r = s.get('https://twitter.com/{!s}'.format(twitter_username))
-            followers_count = r.html.find('#page-container > div.ProfileCanopy.ProfileCanopy--withNav.ProfileCanopy--large.js-variableHeightTopBar > div > div.ProfileCanopy-navBar.u-boxShadow > div.AppContainer > div > div.Grid-cell.u-size2of3.u-lg-size3of4 > div > div > ul > li.ProfileNav-item.ProfileNav-item--followers > a > span.ProfileNav-value', first=True)
-            f = followers_count.text
-            r = {
-                'username': twitter_username,
-                'followers': f
-            }
-            break
+                r = s.get('https://twitter.com/{!s}'.format(twitter_username))
+                followers_count = r.html.find('#page-container > div.ProfileCanopy.ProfileCanopy--withNav.ProfileCanopy--large.js-variableHeightTopBar > div > div.ProfileCanopy-navBar.u-boxShadow > div.AppContainer > div > div.Grid-cell.u-size2of3.u-lg-size3of4 > div > div > ul > li.ProfileNav-item.ProfileNav-item--followers > a > span.ProfileNav-value', first=True)
+                f = followers_count.text
+                r = {
+                    'username': twitter_username,
+                    'followers': f
+                }
+                break
             except AttributeError:
                 pass
         return r
