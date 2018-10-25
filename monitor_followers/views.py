@@ -3,7 +3,7 @@ from django.shortcuts import render
 from requests_html import HTMLSession
 
 def index(request):
-    template_name = '/index.html'
+    template_name = 'index.html'
     search = [
         'iwakura_azusa',
         'eririn959',
