@@ -21,5 +21,6 @@ from django.conf import settings
 from . import views
 urlpatterns = [
     path('', views.index, name='index'),
+    path('ajax/fetch_followers/', views.get_followers, name='fetch_followers'),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

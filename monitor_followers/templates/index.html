@@ -1,21 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="row">
-        <div class="col s12">
-            <a class="waves-effect waves-light btn" id="refresh">Refresh</a>
+<div class="row">
+    <div class="col s5">
+        <div class="input-field">
+            {{ form.q }}
+            <label for="{{ form.q.id_for_label}}">{{ form.q.label }}</label>
+            <span class="helper-text" data-error="Required" data-success="">
+            </span>
         </div>
     </div>
-    {% for x in twitter_info %}
-    <div class="row">
-        <div class="col s4">
-            Username: <a href="http://twitter.com/{{ x.username }}" target="_blank">@{{ x.username }}</a>
-        </div>
-        <div class="col s4">
-            Followers: <a href="http://twitter.com/{{ x.followers }}/followers" target="_blank">{{ x.followers }}</a>
-        </div>
+    <div class="col s7" id="row-user-list">
+        <ul id="user-list" class="collection with-header">
+            <li class="collection-header">
+                <h6>Users:</h6>
+            </li>
+            <li class="collection-item">
+                <div>
+                    &nbsp;
+                    <a href="#!" class="secondary-content">
+                        <i class="material-icons">clear_all</i>
+                    </a>
+                </div>
+            </li>
+        </ul>
     </div>
-    {% empty %}
-        <h1>No data found.</h1>
-    {% endfor %}
-    <h6>Not auto refresh</h6>
+</div>
+<div class="row">
+    <div class="col s6">
+        <a class="waves-effect waves-light btn" id="reload">
+            <i class="material-icons">refresh</i>
+        </a>
+    </div>
+</div>
+<div class="row" id="result"></div>
 {% endblock content %}
