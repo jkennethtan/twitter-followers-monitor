@@ -71,13 +71,13 @@ $(function () {
                 $('#result').html(o);
             },
         }).done(function () {
-            $('#reload').removeClass('disabled');
             var html = '<i class="material-icons">refresh</i>';
         }).fail(function () {
             $('#result').html('<i class="large material-icons">remove_circle</i>');
-        }).then(function () {
+        }).always(function () {
+            $('#reload').removeClass('disabled');
             setTimeout(upd, 10000);
-        })
+        });
     }
     function setCookie(cname, cvalue, exdays) {
         var d = new Date();
