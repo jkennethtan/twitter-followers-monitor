@@ -42,18 +42,15 @@ $(function () {
         </div>';
         return html_circular_spinner;
     }
-    function upd() {
+    function upd(d, url) {
         var o = '';
         $.ajax({
             type: "GET",
-            url: "ajax/fetch_followers/",
-            data: {
-                'username': getCookieValue('username')
-            },
+            url: url,
+            data: d,
             dataType: "JSON",
             beforeSend: function () {
                 $('#reload').addClass('disabled');
-                $('#result').html(htmlCircularSpinner('small'));
             },
             success: function (request) {
                 r = request.twitter_info;
@@ -73,10 +70,13 @@ $(function () {
         }).done(function () {
             var html = '<i class="material-icons">refresh</i>';
         }).fail(function () {
-            $('#result').html('<i class="large material-icons">remove_circle</i>');
+            if (d !== '') {
+                $('#result').html('<i class="large material-icons">remove_circle</i>');
+            } else {
+                $('#result').html('<h6>Empty</h6>');
+            }
         }).always(function () {
             $('#reload').removeClass('disabled');
-            setTimeout(upd, 10000);
         });
     }
     function setCookie(cname, cvalue, exdays) {
@@ -121,9 +121,12 @@ $(function () {
             for (const x in get_username) {
                 list_the_user += create_list(get_username[x]);
             }
-            console.log(cookie_usernames);
             $('#user-list').html(list_the_user);
-            upd();
+        }
+        if (getCookieValue('username') == null) {
+            upd('', '');
+        } else {
+            upd({username: getCookieValue('username')}, 'ajax/fetch_followers/')
         }
     }
     function create_list(value) {
@@ -149,14 +152,13 @@ $(function () {
         }
     });
     $('#user-list').on('click', '.close_btn', function (e) {
-        var remove_list = $(this).closest('li').remove();
+        $(this).closest('li').remove();
         var remove_value_list = $(this).closest('li').attr('value');
         removeCookie('username', remove_value_list);
         loader();
     });
     $('#user-list').on('click', '.close_all_btn', function (e) {
         $('.usernames').addClass('scale-out');
-        // loader();
     });
     $('#reload').click(function (e) { 
         loader();

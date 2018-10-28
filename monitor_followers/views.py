@@ -20,7 +20,7 @@ def _get_followers(username):
             'followers': f
         }
     return r
-    
+
 def get_followers(request):
     template_name = 'index.html'
     twitter_info = []
@@ -29,9 +29,7 @@ def get_followers(request):
     d = map(_get_followers, username)
     for x in d:
         twitter_info.append(x)
-
     context = {
         'twitter_info': twitter_info
     }
     return JsonResponse(context)
-
